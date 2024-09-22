@@ -27,6 +27,11 @@ class _HomeViewState extends State<HomeView> with RouteAware {
     super.dispose();
   }
 
+  // @override
+  // void didPopNext() {
+  //   BlocProvider.of<HomeCubit>(context).loadTasks();
+  // }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
