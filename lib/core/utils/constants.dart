@@ -22,7 +22,29 @@ emptyFieldsWarning(context) {
 taskDeleted(context) {
   return FToast.toast(
     context,
-    msg: "the Task is deleted!",
+    msg: "the Task is deleted successfully!",
+    corner: 20.0,
+    duration: 2000,
+    padding: const EdgeInsets.all(20),
+  );
+}
+
+/// The Task is added
+taskAdded(context) {
+  return FToast.toast(
+    context,
+    msg: "Task is added successfully!",
+    corner: 20.0,
+    duration: 2000,
+    padding: const EdgeInsets.all(20),
+  );
+}
+
+/// The Task is updated
+taskUpdated(context) {
+  return FToast.toast(
+    context,
+    msg: "Task is updated successfully!",
     corner: 20.0,
     duration: 2000,
     padding: const EdgeInsets.all(20),
@@ -79,3 +101,6 @@ dynamic deleteAllTask(BuildContext context) {
 
 /// lottie asset address
 String lottieURL = 'assets/lottie/1.json';
+
+/// lottie splash asset address
+String splashLottieURL = 'assets/lottie/splash.json';

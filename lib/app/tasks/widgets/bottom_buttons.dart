@@ -64,9 +64,11 @@ Widget bottomButtons(BuildContext context, TaskCubit taskCubit, Task? task) {
           onPressed: () async {
             if (task == null) {
               taskCubit.addTask(context);
+              taskAdded(context);
             } else {
               if (taskCubit.hasTaskChanged(task)) {
                 taskCubit.updateTask(context, task);
+                taskUpdated(context);
               } else {
                 nothingEnterOnUpdateTaskMode(context);
               }
