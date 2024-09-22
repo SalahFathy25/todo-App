@@ -24,7 +24,7 @@ taskDeleted(context) {
     context,
     msg: "the Task is deleted successfully!",
     corner: 20.0,
-    duration: 2000,
+    duration: 1000,
     padding: const EdgeInsets.all(20),
   );
 }
@@ -35,7 +35,7 @@ taskAdded(context) {
     context,
     msg: "Task is added successfully!",
     corner: 20.0,
-    duration: 2000,
+    duration: 1000,
     padding: const EdgeInsets.all(20),
   );
 }
@@ -46,7 +46,7 @@ taskUpdated(context) {
     context,
     msg: "Task is updated successfully!",
     corner: 20.0,
-    duration: 2000,
+    duration: 1000,
     padding: const EdgeInsets.all(20),
   );
 }

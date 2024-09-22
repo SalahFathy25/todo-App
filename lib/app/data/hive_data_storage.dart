@@ -9,32 +9,32 @@ class HiveDataStorage {
   final Box<Task> box = Hive.box<Task>(boxName);
 
   Future<void> addTask(Task task) async {
-    debugPrint('Task added: ${task.id}');
+    // debugPrint('Task added: ${task.id}');
     await box.put(task.id, task);
   }
 
   Future<void> updateTask(Task task) async {
-    debugPrint('Task updated: ${task.id}');
+    // debugPrint('Task updated: ${task.id}');
     await box.put(task.id, task);
   }
 
   Future<void> deleteTask(Task task) async {
-    debugPrint('Task deleted: ${task.id}');
+    // debugPrint('Task deleted: ${task.id}');
     await task.delete();
   }
 
   Future<List<Task>> getAllTasks() async {
-    debugPrint('Tasks: ${box.values.toList()}');
+    // debugPrint('Tasks: ${box.values.toList()}');
     return box.values.toList();
   }
 
   Future<Task?> getTaskById(String id) async {
-    debugPrint('Task: ${box.get(id)}');
+    // debugPrint('Task: ${box.get(id)}');
     return box.get(id)!;
   }
 
   Future<void> deleteAllTasks() async {
-    debugPrint('Tasks deleted');
+    // debugPrint('Tasks deleted');
     await box.clear();
   }
 
@@ -47,7 +47,7 @@ class HiveDataStorage {
   }
 
   ValueListenable<Box<Task>> listenToTask() {
-    debugPrint('Tasks: ${box.listenable()}');
+    // debugPrint('Tasks: ${box.listenable()}');
     return box.listenable();
   }
 }

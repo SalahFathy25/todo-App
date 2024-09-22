@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:to_do_list_app/app/data/hive_data_storage.dart';
 import 'package:to_do_list_app/app/home/cubit/cubit/home_cubit.dart';
 
 import '../../main.dart';
@@ -27,21 +26,18 @@ class _HomeViewState extends State<HomeView> with RouteAware {
     super.dispose();
   }
 
-  // @override
-  // void didPopNext() {
-  //   BlocProvider.of<HomeCubit>(context).loadTasks();
-  // }
+  @override
+  void didPopNext() {
+    BlocProvider.of<HomeCubit>(context).loadTasks();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => HomeCubit(HiveDataStorage())..loadTasks(),
-      child: const SafeArea(
-        child: Scaffold(
-          backgroundColor: Colors.white,
-          floatingActionButton: Fab(),
-          body: BuildBody(),
-        ),
+    return const SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        floatingActionButton: Fab(),
+        body: BuildBody(),
       ),
     );
   }

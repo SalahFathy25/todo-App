@@ -1,10 +1,13 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:to_do_list_app/app/home/home_view.dart';
 import 'package:to_do_list_app/core/utils/colors.dart';
 
+import 'app/data/hive_data_storage.dart';
+import 'app/home/cubit/cubit/home_cubit.dart';
 import 'core/utils/constants.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -32,7 +35,10 @@ class SplashScreen extends StatelessWidget {
           )
         ],
       ),
-      nextScreen: const HomeView(),
+      nextScreen: BlocProvider(
+        create: (context) => HomeCubit(HiveDataStorage())..loadTasks(),
+        child: const HomeView(),
+      ),
       splashIconSize: 400,
       backgroundColor: MyColors.primaryColor,
     );
