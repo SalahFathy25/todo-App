@@ -7,7 +7,7 @@ import '../cubit/task_cubit.dart';
 Widget timePickerWidget(BuildContext context, TaskCubit taskCubit) {
   return Container(
     height: 300,
-    color: Colors.white,
+    color: Theme.of(context).scaffoldBackgroundColor,
     child: Column(
       children: [
         SizedBox(

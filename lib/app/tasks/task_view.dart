@@ -37,7 +37,7 @@ class _TaskViewState extends State<TaskView> {
       child: BlocBuilder<TaskCubit, TaskState>(
         builder: (context, state) {
           return Scaffold(
-            backgroundColor: Colors.white,
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             appBar: const MyAppBar(),
             body: SizedBox(
               width: double.infinity,
@@ -49,7 +49,7 @@ class _TaskViewState extends State<TaskView> {
                     children: [
                       TopTextWidget(task: widget.task),
                       const BuildTextFieldAndDateTimePicker(),
-                      bottomButtons(context, taskCubit, widget.task),
+                      bottomButtons(context, taskCubit, widget.task, taskCubit.titleController!, taskCubit.subtitleController!),
                     ],
                   ),
                 ),

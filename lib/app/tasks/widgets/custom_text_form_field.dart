@@ -22,11 +22,15 @@ class CustomTextFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return TextFormField(
       controller: controller,
       maxLines: maxLines,
       cursorHeight: cursorHeight,
-      style: style ?? const TextStyle(color: Colors.black),
+      style: style ??
+          TextStyle(
+            color: isDarkMode ? Colors.white : Colors.black,
+          ),
       decoration: decoration ??
           InputDecoration(
             prefixIcon: prefixIcon,

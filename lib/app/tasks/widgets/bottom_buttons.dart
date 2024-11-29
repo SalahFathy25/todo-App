@@ -6,7 +6,7 @@ import '../../../core/utils/colors.dart';
 import '../../../core/utils/strings.dart';
 import '../../model/task.dart';
 
-Widget bottomButtons(BuildContext context, TaskCubit taskCubit, Task? task) {
+Widget bottomButtons(BuildContext context, TaskCubit taskCubit, Task? task, TextEditingController taskTitleController, TextEditingController taskDescriptionController) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 20),
     child: Row(
@@ -62,9 +62,16 @@ Widget bottomButtons(BuildContext context, TaskCubit taskCubit, Task? task) {
           minWidth: 150,
           height: 55,
           onPressed: () async {
+            // Check if the task fields are empty
+            bool fieldsAreEmpty = taskTitleController.text.isEmpty || taskDescriptionController.text.isEmpty;
+
             if (task == null) {
-              taskCubit.addTask(context);
-              taskAdded(context);
+              if (fieldsAreEmpty) {
+                emptyFieldsWarning(context);
+              } else {
+                taskCubit.addTask(context);
+                taskAdded(context);
+              }
             } else {
               if (taskCubit.hasTaskChanged(task)) {
                 taskCubit.updateTask(context, task);
@@ -77,8 +84,8 @@ Widget bottomButtons(BuildContext context, TaskCubit taskCubit, Task? task) {
           color: MyColors.primaryColor,
           child: Text(
             task == null ? MyString.addTaskString : MyString.updateTaskString,
-            style: const TextStyle(
-              color: Colors.white,
+            style: TextStyle(
+              color: Theme.of(context).scaffoldBackgroundColor,
             ),
           ),
         )

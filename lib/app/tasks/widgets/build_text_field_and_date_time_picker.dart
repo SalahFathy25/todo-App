@@ -10,13 +10,12 @@ import 'date_picker_widget.dart';
 import 'time_picker_widget.dart';
 
 class BuildTextFieldAndDateTimePicker extends StatelessWidget {
-  const BuildTextFieldAndDateTimePicker({
-    super.key,
-  });
+  const BuildTextFieldAndDateTimePicker({super.key});
 
   @override
   Widget build(BuildContext context) {
     final taskCubit = TaskCubit.of(context);
+    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return SizedBox(
       width: double.infinity,
       height: 495,
@@ -46,7 +45,8 @@ class BuildTextFieldAndDateTimePicker extends StatelessWidget {
             child: ListTile(
               title: TextFormField(
                 controller: TaskCubit.of(context).subtitleController!,
-                style: const TextStyle(color: Colors.black),
+                style:
+                    TextStyle(color: isDarkMode ? Colors.white : Colors.black),
                 decoration: InputDecoration(
                   prefixIcon: const Icon(
                     Icons.bookmark_border,
@@ -80,7 +80,7 @@ class BuildTextFieldAndDateTimePicker extends StatelessWidget {
               width: double.infinity,
               height: 55,
               decoration: BoxDecoration(
-                color: Colors.white12,
+                color: Theme.of(context).scaffoldBackgroundColor,
                 border: Border.all(color: Colors.grey.shade300, width: 1),
                 borderRadius: BorderRadius.circular(10),
               ),
@@ -99,7 +99,7 @@ class BuildTextFieldAndDateTimePicker extends StatelessWidget {
                     width: 80,
                     height: 35,
                     decoration: BoxDecoration(
-                      color: Colors.grey.shade100,
+                      color: Theme.of(context).scaffoldBackgroundColor,
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Center(
@@ -137,7 +137,7 @@ class BuildTextFieldAndDateTimePicker extends StatelessWidget {
               width: double.infinity,
               height: 55,
               decoration: BoxDecoration(
-                color: Colors.white12,
+                color: Theme.of(context).scaffoldBackgroundColor,
                 border: Border.all(color: Colors.grey.shade300, width: 1),
                 borderRadius: BorderRadius.circular(10),
               ),
@@ -156,7 +156,7 @@ class BuildTextFieldAndDateTimePicker extends StatelessWidget {
                     width: 120,
                     height: 35,
                     decoration: BoxDecoration(
-                      color: Colors.grey.shade100,
+                      color: Theme.of(context).scaffoldBackgroundColor,
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Center(

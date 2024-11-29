@@ -7,7 +7,7 @@ import '../cubit/task_cubit.dart';
 Widget datePickerWidget(TaskCubit taskCubit, BuildContext context) {
   return Container(
     height: 270,
-    color: Colors.white,
+    color: Theme.of(context).scaffoldBackgroundColor,
     child: Column(
       children: [
         SizedBox(

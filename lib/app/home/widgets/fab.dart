@@ -36,9 +36,9 @@ class Fab extends StatelessWidget {
             color: MyColors.primaryColor,
             borderRadius: BorderRadius.circular(20),
           ),
-          child: const Icon(
+          child: Icon(
             CupertinoIcons.add,
-            color: Colors.white,
+            color: Theme.of(context).scaffoldBackgroundColor,
           ),
         ),
       ),

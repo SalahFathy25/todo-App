@@ -33,11 +33,11 @@ class _HomeViewState extends State<HomeView> with RouteAware {
 
   @override
   Widget build(BuildContext context) {
-    return const SafeArea(
+    return  SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.white,
-        floatingActionButton: Fab(),
-        body: BuildBody(),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        floatingActionButton: const Fab(),
+        body: const BuildBody(),
       ),
     );
   }

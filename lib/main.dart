@@ -9,9 +9,7 @@ import 'package:to_do_list_app/core/utils/constants.dart';
 import 'package:to_do_list_app/splash_screen.dart';
 
 import 'app/model/task.dart';
-import 'core/utils/theme.dart';
 
-//dark mode
 //shared preferences
 
 final RouteObserver routeObserver = RouteObserver<PageRoute>();
