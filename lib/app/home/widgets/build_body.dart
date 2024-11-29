@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:to_do_list_app/app/cubit/apptheme_cubit.dart';
+import 'package:to_do_list_app/app/cubit/theme_state.dart';
 import 'package:to_do_list_app/app/home/widgets/task_widget.dart';
 import 'package:to_do_list_app/core/utils/constants.dart';
 
@@ -15,6 +17,7 @@ class BuildBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final texttheme = Theme.of(context).textTheme;
+    const dark = false;
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
         if (state is HomeLoading) {
@@ -39,8 +42,27 @@ class BuildBody extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(right: 5, top: 5),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    // BlocBuilder<AppthemeCubit, AppThemeState>(
+                    //   builder: (context, state) {
+                    //     return IconButton(
+                    //       onPressed: () {
+                    //         if(state is LightAppTheme){
+                    //           dark == false;
+                    //           BlocProvider.of<AppthemeCubit>(context).changeTheme(ThemeState.light);
+                    //         } else {
+                    //           dark == true;
+                    //           BlocProvider.of<AppthemeCubit>(context).changeTheme(ThemeState.dark);
+                    //         }
+                    //       },
+                    //       icon: dark == true
+                    //           ? const Icon(Icons.light_mode_outlined)
+                    //           : const Icon(Icons.dark_mode),
+                    //       iconSize: 40,
+                    //     );
+                    //   },
+                    // ),
                     BlocBuilder<HomeCubit, HomeState>(
                       builder: (context, state) {
                         return IconButton(
@@ -75,8 +97,7 @@ class BuildBody extends StatelessWidget {
                           height: 45,
                           child: CircularProgressIndicator(
                             valueColor: const AlwaysStoppedAnimation(
-                              MyColors.primaryColor,
-                            ),
+                                MyColors.primaryColor),
                             color: Colors.grey.shade300,
                             strokeWidth: 3,
                             strokeCap: StrokeCap.round,

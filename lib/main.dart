@@ -1,14 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:to_do_list_app/app/cubit/apptheme_cubit.dart';
+import 'package:to_do_list_app/app/cubit/theme_state.dart';
 import 'package:to_do_list_app/app/data/hive_data_storage.dart';
+import 'package:to_do_list_app/core/utils/constants.dart';
 import 'package:to_do_list_app/splash_screen.dart';
 
 import 'app/model/task.dart';
 import 'core/utils/theme.dart';
 
+//dark mode
+//shared preferences
+
 final RouteObserver routeObserver = RouteObserver<PageRoute>();
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  sharedPreferences = await SharedPreferences.getInstance();
 
   await Hive.initFlutter();
   Hive.registerAdapter<Task>(TaskAdapter());
@@ -28,12 +37,39 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Todo App',
-      theme: themeData,
-      navigatorObservers: [routeObserver],
-      home: const SplashScreen(),
+    return BlocProvider(
+      create: (context) => AppthemeCubit()..changeTheme(ThemeState.initial),
+      child: BlocBuilder<AppthemeCubit, AppThemeState>(
+        builder: (context, state) {
+          if (state is LightAppTheme) {
+            return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              title: 'Todo App',
+              theme: ThemeData.light(),
+              navigatorObservers: [routeObserver],
+              home: const SplashScreen(),
+            );
+          } else if (state is DarkAppTheme) {
+            return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              title: 'Todo App',
+              theme: ThemeData.dark(),
+              navigatorObservers: [routeObserver],
+              home: const SplashScreen(),
+            );
+          }
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'Todo App',
+            navigatorObservers: [routeObserver],
+            themeMode: ThemeMode.system,
+            home: const SplashScreen(),
+          );
+        },
+      ),
     );
   }
 }
+
+
+//BlocProvider.of<AppthemeCubit>(context).changeTheme(light/dark)

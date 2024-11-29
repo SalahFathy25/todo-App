@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ftoast/ftoast.dart';
 import 'package:panara_dialogs/panara_dialogs.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../app/home/cubit/cubit/home_cubit.dart';
 import 'strings.dart';
@@ -104,3 +105,5 @@ String lottieURL = 'assets/lottie/1.json';
 
 /// lottie splash asset address
 String splashLottieURL = 'assets/lottie/splash.json';
+
+SharedPreferences? sharedPreferences;
