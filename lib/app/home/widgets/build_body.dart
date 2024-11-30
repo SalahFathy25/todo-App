@@ -47,49 +47,56 @@ class _BuildBodyState extends State<BuildBody> {
               Padding(
                 padding: const EdgeInsets.only(right: 5, top: 5),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    BlocBuilder<AppthemeCubit, AppThemeState>(
-                      builder: (context, state) {
-                        return IconButton(
-                          onPressed: () {
-                            if (dark) {
-                              BlocProvider.of<AppthemeCubit>(context)
-                                  .changeTheme(ThemeState.light);
-                            } else {
-                              BlocProvider.of<AppthemeCubit>(context)
-                                  .changeTheme(ThemeState.dark);
-                            }
-                            setState(
-                              () {
-                                dark = !dark;
-                              },
-                            );
-                          },
-                          icon: Icon(
-                            dark ? Icons.light_mode_outlined : Icons.dark_mode,
-                            color: dark ? Colors.yellow : MyColors.primaryColor,
-                          ),
-                          iconSize: 40,
-                        );
-                      },
+                  //  const Spacer(),
+                    Expanded(
+                      child: BlocBuilder<AppthemeCubit, AppThemeState>(
+                        builder: (context, state) {
+                          return IconButton(
+                            onPressed: () {
+                              if (dark) {
+                                BlocProvider.of<AppthemeCubit>(context)
+                                    .changeTheme(ThemeState.light);
+                              } else {
+                                BlocProvider.of<AppthemeCubit>(context)
+                                    .changeTheme(ThemeState.dark);
+                              }
+                              setState(
+                                () {
+                                  dark = !dark;
+                                },
+                              );
+                            },
+                            icon: Icon(
+                              dark ? Icons.light_mode_outlined : Icons.dark_mode,
+                              color: dark ? Colors.yellow : MyColors.primaryColor,
+                            ),
+                            iconSize: 40,
+                          );
+                        },
+                      ),
                     ),
-                    BlocBuilder<HomeCubit, HomeState>(
-                      builder: (context, state) {
-                        return IconButton(
-                          onPressed: () async {
-                            if (tasks.isEmpty) {
-                              warningNoTask(context);
-                            } else {
-                              await deleteAllTask(context);
-                            }
-                          },
-                          icon: const Icon(CupertinoIcons.trash),
-                          iconSize: 40,
-                          color: MyColors.primaryColor,
-                        );
-                      },
+                    const Spacer(flex: 4),
+                    Expanded(
+                      child: BlocBuilder<HomeCubit, HomeState>(
+                        builder: (context, state) {
+                          return IconButton(
+                            onPressed: () async {
+                              if (tasks.isEmpty) {
+                                warningNoTask(context);
+                              } else {
+                                await deleteAllTask(context);
+                              }
+                            },
+                            icon: const Icon(CupertinoIcons.trash),
+                            iconSize: 40,
+                            color: MyColors.primaryColor,
+                          );
+                        },
+                      ),
                     ),
+                    // const Spacer()
                   ],
                 ),
               ),

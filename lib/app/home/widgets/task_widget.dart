@@ -17,6 +17,7 @@ class TaskWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool dark = Theme.of(context).brightness == Brightness.dark;
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
         return InkWell(
@@ -39,7 +40,7 @@ class TaskWidget extends StatelessWidget {
             decoration: BoxDecoration(
               color: task.status
                   ? MyColors.primaryColor.withOpacity(.7)
-                  : Colors.white,
+                  : Theme.of(context).scaffoldBackgroundColor.withOpacity(1),
               borderRadius: BorderRadius.circular(8),
               boxShadow: [
                 BoxShadow(
@@ -77,7 +78,11 @@ class TaskWidget extends StatelessWidget {
               title: Text(
                 task.title,
                 style: TextStyle(
-                  color: task.status ? Colors.white : Colors.black,
+                  color: task.status
+                      ? Colors.white
+                      : dark
+                          ? Colors.white
+                          : Colors.black,
                   fontWeight: FontWeight.w500,
                   decoration: task.status ? TextDecoration.lineThrough : null,
                 ),

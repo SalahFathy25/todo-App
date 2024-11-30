@@ -2,16 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:to_do_list_app/app/cubit/apptheme_cubit.dart';
-import 'package:to_do_list_app/app/cubit/theme_state.dart';
-import 'package:to_do_list_app/app/data/hive_data_storage.dart';
-import 'package:to_do_list_app/core/utils/constants.dart';
-import 'package:to_do_list_app/splash_screen.dart';
 
+import 'app/cubit/apptheme_cubit.dart';
+import 'app/cubit/theme_state.dart';
+import 'app/data/hive_data_storage.dart';
 import 'app/model/task.dart';
+import 'core/utils/constants.dart';
+import 'splash_screen.dart';
 
 //showcaseview
-//shared preferences
 
 final RouteObserver routeObserver = RouteObserver<PageRoute>();
 Future<void> main() async {

@@ -43,4 +43,27 @@ class Task extends HiveObject {
         date: date ?? DateTime.now(),
         status: false,
       );
+
+  factory Task.fromJson(Map<String, dynamic> json) {
+    return Task(
+      id: json['id'] as String,
+      title: json['title'] as String,
+      subtitle: json['subtitle'] as String,
+      time: DateTime.parse(json['time']),
+      date: DateTime.parse(json['date']),
+      status: json['status'] as bool,
+    );
+  }
+
+  // This is the toJson method
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'title': title,
+      'subtitle': subtitle,
+      'time': time.toIso8601String(),
+      'date': date.toIso8601String(),
+      'status': status,
+    };
+  }
 }

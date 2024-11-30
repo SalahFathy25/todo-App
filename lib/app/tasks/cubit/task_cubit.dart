@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:to_do_list_app/app/data/hive_data_storage.dart';
 import 'package:to_do_list_app/core/utils/constants.dart';
 
@@ -32,10 +35,18 @@ class TaskCubit extends Cubit<TaskState> {
     return super.close();
   }
 
+  Future<void> loadPreferences() async {
+    sharedPreferences = await SharedPreferences.getInstance();
+    loadTasks();
+  }
+
   void loadTasks() async {
     emit(TaskLoading());
     try {
-      List<Task> tasks = await hiveDataStorage.getAllTasks();
+      List<String> tasksJson = sharedPreferences?.getStringList('tasks') ?? [];
+      List<Task> tasks = tasksJson.map((taskJson) {
+        return Task.fromJson(jsonDecode(taskJson)); // Convert JSON back to Task
+      }).toList();
       emit(TaskLoaded(tasks));
     } catch (e) {
       emit(TaskError(e.toString()));
@@ -68,7 +79,7 @@ class TaskCubit extends Cubit<TaskState> {
     }
   }
 
-  void addTask(BuildContext context) {
+  void addTask(BuildContext context) async {
     if (titleController!.text.isNotEmpty &&
         subtitleController!.text.isNotEmpty) {
       final newTask = Task.create(
@@ -77,6 +88,9 @@ class TaskCubit extends Cubit<TaskState> {
         time: time,
         date: date,
       );
+      List<String> tasksJson = sharedPreferences?.getStringList('tasks') ?? [];
+      tasksJson.add(jsonEncode(newTask.toJson()));
+      await sharedPreferences?.setStringList('tasks', tasksJson);
       hiveDataStorage.addTask(newTask);
       loadTasks();
       Navigator.pop(context);
@@ -86,7 +100,7 @@ class TaskCubit extends Cubit<TaskState> {
     }
   }
 
-  void updateTask(BuildContext context, Task task) {
+  void updateTask(BuildContext context, Task task) async {
     if (titleController!.text.isNotEmpty &&
         subtitleController!.text.isNotEmpty) {
       final updatedTask = Task(
@@ -97,6 +111,15 @@ class TaskCubit extends Cubit<TaskState> {
         date: date!,
         status: task.status,
       );
+      List<String> tasksJson = sharedPreferences?.getStringList('tasks') ?? [];
+      tasksJson = tasksJson.map((taskJson) {
+        Task oldTask = Task.fromJson(jsonDecode(taskJson));
+        return oldTask.id == updatedTask.id
+            ? jsonEncode(updatedTask.toJson())
+            : taskJson;
+      }).toList();
+
+      await sharedPreferences?.setStringList('tasks', tasksJson);
       hiveDataStorage.updateTask(updatedTask);
       loadTasks();
       Navigator.pop(context);
@@ -106,7 +129,12 @@ class TaskCubit extends Cubit<TaskState> {
     }
   }
 
-  void deleteTask(Task task) {
+  void deleteTask(Task task) async {
+    List<String> tasksJson = sharedPreferences?.getStringList('tasks') ?? [];
+    tasksJson.removeWhere(
+        (taskJson) => Task.fromJson(jsonDecode(taskJson)).id == task.id);
+
+    await sharedPreferences?.setStringList('tasks', tasksJson);
     hiveDataStorage.deleteTask(task);
     loadTasks();
   }

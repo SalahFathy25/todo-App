@@ -27,14 +27,17 @@ class Fab extends StatelessWidget {
         );
       },
       child: Material(
-        borderRadius: BorderRadius.circular(20),
-        elevation: 10,
+        color: Theme.of(context).scaffoldBackgroundColor,
+        animationDuration: const Duration(milliseconds: 500),
+        borderOnForeground: true,
+        type: MaterialType.circle,
+        elevation: 15,
         child: Container(
           height: 70,
           width: 70,
           decoration: BoxDecoration(
             color: MyColors.primaryColor,
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(50),
           ),
           child: Icon(
             CupertinoIcons.add,
