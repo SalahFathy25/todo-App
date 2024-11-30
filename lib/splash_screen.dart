@@ -41,6 +41,8 @@ class SplashScreen extends StatelessWidget {
       ),
       splashIconSize: 400,
       backgroundColor: MyColors.primaryColor,
+      duration: 8800,
+      splashTransition: SplashTransition.fadeTransition,
     );
   }
 }
