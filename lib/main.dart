@@ -10,8 +10,6 @@ import 'app/model/task.dart';
 import 'core/utils/constants.dart';
 import 'splash_screen.dart';
 
-//showcaseview
-
 final RouteObserver routeObserver = RouteObserver<PageRoute>();
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -28,7 +28,6 @@ class Fab extends StatelessWidget {
       },
       child: Material(
         color: Theme.of(context).scaffoldBackgroundColor,
-        animationDuration: const Duration(milliseconds: 500),
         borderOnForeground: true,
         type: MaterialType.circle,
         elevation: 15,
